@@ -1,0 +1,20 @@
+POST .monitoring-kibana-2-2016.10.*/kibana_stats/_search
+{
+  "size": 0,
+  "aggs": {
+    "statuses": {
+      "date_histogram": {
+        "field": "timestamp",
+        "interval": "hour"
+      },
+      "aggs": {
+        "statuses": {
+          "terms": {
+            "field": "kibana_stats.kibana.status",
+            "size": 10
+          }
+        }
+      }
+    }
+  }
+}

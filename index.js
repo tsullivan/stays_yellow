@@ -3,10 +3,16 @@ export default function staysYellowIndex(kibana) {
     require: ['kibana', 'elasticsearch'],
     id: 'stays_yellow',
 
+    config(Joi) {
+      return Joi.object({
+        enabled: Joi.boolean().default(true)
+      }).default();
+    },
+
     /*
      * Plugin status stays yellow for 1 minute. Then goes green.
      */
-    init: function (server, _options) {
+    init(server) {
       this.status.yellow('Waiting...');
       setTimeout(() => {
         this.status.green('Ready');
